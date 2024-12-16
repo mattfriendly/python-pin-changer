@@ -58,3 +58,6 @@ user01,123456
 user02,654321
 user1,999999
 ```
+
+- **alias:** The user's alias in CUC (as confirmed in the CUC admin GUI)
+- **new_pin:** The new PIN to be set for that user
