@@ -61,3 +61,40 @@ user1,999999
 
 - **alias:** The user's alias in CUC (as confirmed in the CUC admin GUI)
 - **new_pin:** The new PIN to be set for that user
+
+## Usage
+
+1. Ensure your `.env` file is properly configured and `users.csv` is in the project directory.
+2. Run the script:
+    ```bash
+    python3 ppc.py
+    ```
+3. The script will:
+   - Load environment variables.
+   - Read `users.csv` and attempt to update each user's PIN via the CUC API.
+   - Write results to `processed_users.csv`, logging success or failure.
+   - Generate `pin_change.log` for debugging and audit purposes.
+
+## Logging & Debugging
+
+- The console will show INFO-level logs.
+- `pin_change.log` will contain DEBUG-level logs, including request/response details if `DEBUG=True` in `.env`.
+- If a user is not found or the PIN update fails, the error is logged, and processing continues for the remaining users.
+
+## Resuming & Auditing
+
+- After the script finishes, check `processed_users.csv` to see which users succeeded or failed.
+- To retry failures:
+  - Adjust the input CSV or correct environment issues.
+  - Rerun the script. You can remove processed (successful) users from the `users.csv` file if desired, or leave them in and they will simply be updated again.
+
+## Security Considerations
+
+- The script uses Basic Auth over HTTPS. Ensure you have a secure connection to the CUC server.
+- If using a self-signed certificate, you can disable SSL verification or provide a trusted `.pem` via `CUC_CERT`.
+- Handle `.env` and log files carefully, as they may contain sensitive information.
+
+## Contributing
+
+Contributions are welcome. Please open issues or submit pull requests to suggest improvements, fix bugs, or add new features.
+
